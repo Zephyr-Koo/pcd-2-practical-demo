@@ -27,7 +27,7 @@ void demoPointer()
            corresponding address
     */
 
-    printf("Value %d was stored in address %d. \n", num, numAddr);
+    printf("Value %d was stored in address %d. \n", num, &num);
     printf("The address %d contains the value %d. \n\n", numAddr, *numAddr);
 }
 
