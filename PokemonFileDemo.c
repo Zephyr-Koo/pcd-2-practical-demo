@@ -183,6 +183,7 @@ void deletePokemonsFromTextFile(char *type)
     {
         for (int i = 0; i < index; i++)
         {
+            // Keep the records that doesn't match the delete criteria
             if (strcmp(pokemons[i].type, type) != 0)
             {
                 fprintf(fOutput, TEXT_WRITE_FORMAT, pokemonList[i].name, pokemonList[i].type, pokemonList[i].hp);
@@ -227,6 +228,7 @@ void deletePokemonsFromBinaryFile(char *type)
     {
         for (int i = 0; i < index; i++)
         {
+            // Keep the records that doesn't match the delete criteria
             if (strcmp(pokemons[i].type, type) != 0)
             {
                 fwrite(&pokemons[i], sizeof(pokemons[i]), 1, fOutput);
@@ -264,6 +266,7 @@ void deletePokemonsWithTempFile(char *type)
 
         for (int i = 0; i < index; i++)
         {
+            // Keep the records that doesn't match the delete criteria
             if (strcmp(pokemons[i].type, type) != 0)
             {
                 fprintf(fOutput, TEXT_WRITE_FORMAT, pokemonList[i].name, pokemonList[i].type, pokemonList[i].hp);
