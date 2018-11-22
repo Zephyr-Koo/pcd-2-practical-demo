@@ -22,7 +22,7 @@ void storeBadmintonPlayers();
 void readBadmintonPlayers();
 
 // Player structure definition
-typedef struct
+typedef struct Player
 {
     char name[50];
     char gender;
@@ -52,6 +52,7 @@ void readBadmintonPlayers()
     if (fInput != NULL) // able to open the file?
     {
         Player p;
+        
 
         // Header
         puts("\t\t\t\t LIST OF PLAYERS \n");
@@ -61,29 +62,25 @@ void readBadmintonPlayers()
         // Continue reading until reach End-of-File (EOF)
         while (fscanf(fInput, BADMINTON_PLAYER_READ_FORMAT, p.name, &p.gender, &p.playerType, p.countryCode, &p.ranking) != EOF)
         {
-            noOfPlayers++;
-
-            printf("%s \t %c \t\t %s \t\t ", p.name, p.gender, p.countryCode);
+            char gameType[16];
 
             if (p.playerType == PLAYER_TYPE_MIXED)
             {
-                printf("%s", "Mixed Doubles");
+                strcpy(gameType, "Mixed Doubles");
             }
             else
             {
                 if (p.gender == GENDER_MALE)
-                {
-                    printf("Men's ");
-                }
+                    strcpy(gameType, "Men's ");
                 else if (p.gender == GENDER_FEMALE)
-                {
-                    printf("Women's ");
-                }
+                    strcpy(gameType, "Women's ");
 
-                printf(p.playerType == PLAYER_TYPE_SINGLE ? "Singles" : "Doubles");
+                // shortcut: use conditional operator if only need to cater for 2 possibilities
+                strcat(gameType, p.playerType == PLAYER_TYPE_SINGLE ? "Singles" : "Doubles");
             }
-
-            printf("  \t%d \n", p.ranking);
+            
+            noOfPlayers++;
+            printf("%s \t %c \t\t %s \t\t %s  \t%d \n", p.name, p.gender, p.countryCode, gameType, p.ranking);
         }
 
         // Footer
