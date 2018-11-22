@@ -44,53 +44,6 @@ int main()
     return 0;
 }
 
-void readBadmintonPlayers()
-{
-    int  noOfPlayers = 0;
-    FILE *fInput     = fopen(BADMINTON_PLAYER_FILE, "r"); // open the text file for reading
-
-    if (fInput != NULL) // able to open the file?
-    {
-        Player p;
-        
-
-        // Header
-        puts("\t\t\t\t LIST OF PLAYERS \n");
-        puts("Name \t\t Gender \t Country \t Game Type \t  Ranking");
-        puts("-------------------------------------------------------------------------");
-
-        // Continue reading until reach End-of-File (EOF)
-        while (fscanf(fInput, BADMINTON_PLAYER_READ_FORMAT, p.name, &p.gender, &p.playerType, p.countryCode, &p.ranking) != EOF)
-        {
-            char gameType[16];
-
-            if (p.playerType == PLAYER_TYPE_MIXED)
-            {
-                strcpy(gameType, "Mixed Doubles");
-            }
-            else
-            {
-                if (p.gender == GENDER_MALE)
-                    strcpy(gameType, "Men's ");
-                else if (p.gender == GENDER_FEMALE)
-                    strcpy(gameType, "Women's ");
-
-                // shortcut: use conditional operator if only need to cater for 2 possibilities
-                strcat(gameType, p.playerType == PLAYER_TYPE_SINGLE ? "Singles" : "Doubles");
-            }
-            
-            noOfPlayers++;
-            printf("%s \t %c \t\t %s \t\t %s  \t%d \n", p.name, p.gender, p.countryCode, gameType, p.ranking);
-        }
-
-        // Footer
-        puts("-------------------------------------------------------------------------");
-        printf("\t %d player(s) listed.", noOfPlayers);
-
-        fclose(fInput); // finished reading and close the file properly
-    }
-}
-
 void storeBadmintonPlayers()
 {
     int  noOfPlayer = 0;
@@ -145,4 +98,51 @@ void storeBadmintonPlayers()
     } while (strcmp(exitCode, PROGRAM_EXIT) != 0); // continue loop if not "XXX"
 
     printf("%d new player(s) added and stored successfully!", noOfPlayer);
+}
+
+void readBadmintonPlayers()
+{
+    int  noOfPlayers = 0;
+    FILE *fInput     = fopen(BADMINTON_PLAYER_FILE, "r"); // open the text file for reading
+
+    if (fInput != NULL) // able to open the file?
+    {
+        Player p;
+        
+
+        // Header
+        puts("\t\t\t\t LIST OF PLAYERS \n");
+        puts("Name \t\t Gender \t Country \t Game Type \t  Ranking");
+        puts("-------------------------------------------------------------------------");
+
+        // Continue reading until reach End-of-File (EOF)
+        while (fscanf(fInput, BADMINTON_PLAYER_READ_FORMAT, p.name, &p.gender, &p.playerType, p.countryCode, &p.ranking) != EOF)
+        {
+            char gameType[16];
+
+            if (p.playerType == PLAYER_TYPE_MIXED)
+            {
+                strcpy(gameType, "Mixed Doubles");
+            }
+            else
+            {
+                if (p.gender == GENDER_MALE)
+                    strcpy(gameType, "Men's ");
+                else if (p.gender == GENDER_FEMALE)
+                    strcpy(gameType, "Women's ");
+
+                // shortcut: use conditional operator if only need to cater for 2 possibilities
+                strcat(gameType, p.playerType == PLAYER_TYPE_SINGLE ? "Singles" : "Doubles");
+            }
+            
+            noOfPlayers++;
+            printf("%s \t %c \t\t %s \t\t %s  \t%d \n", p.name, p.gender, p.countryCode, gameType, p.ranking);
+        }
+
+        // Footer
+        puts("-------------------------------------------------------------------------");
+        printf("\t %d player(s) listed.", noOfPlayers);
+
+        fclose(fInput); // finished reading and close the file properly
+    }
 }
