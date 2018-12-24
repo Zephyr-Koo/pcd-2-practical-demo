@@ -1,5 +1,5 @@
 #define FRIEND_SIZE 5
-#define BINARY_FILE "StaffRecords.dat"
+#define BINARY_FILE "FriendList.dat"
 
 #include <stdio.h>
 #include <stdlib.h>
